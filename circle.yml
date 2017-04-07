@@ -1,0 +1,11 @@
+machine:
+  services:
+    - docker
+
+test:
+  override:
+    # Verify
+    - bin/covalence ci
+    # UAT
+    - bin/covalence basic:defaults:apply
+    - bin/covalence basic:defaults:destroy

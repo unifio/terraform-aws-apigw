@@ -1,0 +1,10 @@
+---
+# Common resources
+
+## Basic example
+examples::basic::vars:
+  region: 'us-east-2'
+  stack_item_fullname: 'Basic Examples'
+  stack_item_label: 'bsc'
+
+## Advanced example
