@@ -1,0 +1,34 @@
+---
+# Basic defaults example
+
+## Module
+defaults::module: 'examples/basic'
+
+## State storage
+defaults::state:
+  - s3:
+      bucket: "%{hiera('tf_state_bucket')}"
+      name: "terraform-aws-apigw/%{environment}"
+      region: "%{hiera('tf_state_region')}"
+
+### API Gateway
+examples::basic::vars:
+  stack_item_label: "%{hiera('env_label')}"
+  api_desc: "API Gateway for %{hiera('env_label')} environment.  Managed by Terraform."
+  api_path: "{proxy+}"
+  api_http_method: "ANY"
+  api_method_request_model: "Error"
+  api_http_integration_type: "HTTP_PROXY"
+  api_authorization: "NONE"
+  api_key_required: "true"
+  api_gateway_uri: "http://petstore-demo-endpoint.execute-api.com/{proxy}"
+  ## api_clients: ["user1", "user2" ]
+  api_clients: "user1"
+  api_usage_plan: "basic_usage"
+  api_usage_description: "Basic usage plan"
+  api_usage_limit: "20"
+  api_usage_offset: "2"
+  api_usage_period: "WEEK"
+  api_throttle_burst: "5"
+  api_throttle_limit: "10"
+

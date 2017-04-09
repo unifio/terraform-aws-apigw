@@ -1,0 +1,16 @@
+machine:
+  services:
+    - docker
+  environment:
+    CI_CONTAINER_VERSION: 2.0.47
+
+test:
+  pre:
+    - echo -e "DOCKER_IMAGE_NAME=unifio/ci:${CI_CONTAINER_VERSION}" >> .env.covalence
+    - cat .env.covalence
+  override:
+    # Verify
+    - bin/covalence ci
+    # UAT
+    - bin/covalence basic:defaults:apply
+    - bin/covalence basic:defaults:destroy
