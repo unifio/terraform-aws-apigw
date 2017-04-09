@@ -2,7 +2,7 @@
 
 ## Set Terraform version constraint
 terraform {
-  required_version = "> 0.8.0"
+  required_version = "> 0.9.2"
 }
 
 ## Creates cloudconfig fragments for tagging
@@ -63,6 +63,7 @@ resource "aws_api_gateway_deployment" "api_gw_deploy" {
   stage_name  = "${var.stack_item_label}"
 }
 
+## Trying to setup multiple api keys
 ##resource "aws_api_gateway_api_key" "api_key" {
 ##  count                   = "${length(keys(var.api_clients))}"
 ##  name = "${element(values(var.api_clients), count.index)}"
@@ -75,9 +76,31 @@ resource "aws_api_gateway_deployment" "api_gw_deploy" {
 
 resource "aws_api_gateway_api_key" "api_key" {
   name = "${var.api_clients}"
+}
 
-  stage_key {
-    rest_api_id = "${aws_api_gateway_rest_api.api_gateway.id}"
-    stage_name  = "${aws_api_gateway_deployment.api_gw_deploy.stage_name}"
+resource "aws_api_gateway_usage_plan" "api_usage_plan" {
+  name         = "${var.api_usage_plan}"
+  description  = "${var.api_usage_description}"
+
+  api_stages {
+    api_id = "${aws_api_gateway_rest_api.api_gateway.id}"
+    stage  = "${aws_api_gateway_deployment.api_gw_deploy.stage_name}"
   }
+
+  quota_settings {
+    limit  = "${var.api_usage_limit}"
+    offset = "${var.api_usage_offset}"
+    period = "${var.api_usage_period}"
+  }
+
+  throttle_settings {
+    burst_limit = "${var.api_throttle_burst}"
+    rate_limit  = "${var.api_throttle_burst}"
+  }
+}
+
+resource "aws_api_gateway_usage_plan_key" "main" {
+  key_id        = "${aws_api_gateway_api_key.api_key.id}"
+  key_type      = "API_KEY"
+  usage_plan_id = "${aws_api_gateway_usage_plan.api_usage_plan.id}"
 }
