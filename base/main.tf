@@ -2,7 +2,7 @@
 
 ## Set Terraform version constraint
 terraform {
-  required_version = "> 0.9.2"
+  required_version = ">= 0.9.2"
 }
 
 ## Creates cloudconfig fragments for tagging
