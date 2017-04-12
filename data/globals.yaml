@@ -1,0 +1,11 @@
+---
+# Global variables
+
+## AWS
+iam_path: '/terraform/'
+region: &region 'us-east-2'
+
+## Terraform
+tf_state_bucket: 'unifio-terraform-state'
+tf_state_region: *region
+

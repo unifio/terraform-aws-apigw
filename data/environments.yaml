@@ -1,0 +1,21 @@
+---
+# Environments
+
+environments:
+  # Split the API into a separate stack, as the custom domain does not handle churn well. The disassociation with CloudFront takes ~40 minutes.
+  ## TODO: Add tests for loading a certificate
+  ## TODO: Add tests for DNS association
+  prereqs:
+    - 'api'
+
+  ## TODO: Add tests for Lambda proxy
+  ## TODO: Add tests for non-proxy scenarios
+  proxy:
+    - 'http'
+
+  stage:
+    - 'domain'
+    - 'deploy'
+
+  usage:
+    - 'defaults'

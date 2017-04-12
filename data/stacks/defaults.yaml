@@ -1,0 +1,12 @@
+---
+# Usage plan example
+
+## Module
+defaults::module: 'examples/usage'
+
+## State storage
+defaults::state:
+  - s3:
+      bucket: "%{hiera('tf_state_bucket')}"
+      name: "terraform-aws-apigw/%{environment}"
+      region: "%{hiera('tf_state_region')}"
