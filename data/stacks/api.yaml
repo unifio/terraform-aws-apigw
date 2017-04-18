@@ -1,0 +1,20 @@
+---
+# Prerequisite account example
+
+## Module
+api::module: 'examples/prereqs'
+
+## State storage
+api::state:
+  - s3:
+      bucket: "%{hiera('tf_state_bucket')}"
+      name: "terraform-aws-apigw/%{environment}"
+      region: "%{hiera('tf_state_region')}"
+
+### API Gateway
+examples::prereqs::vars:
+  certificate_name: '*.unif.io'
+  certificate_type: 'acm'
+  iam_path: "%{hiera('iam_path')}"
+  stack_item_fullname: 'API Gateway UAT'
+  stack_item_label: 'uat'

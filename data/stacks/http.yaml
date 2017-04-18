@@ -1,0 +1,25 @@
+---
+# HTTP proxy example
+
+## Module
+http::module: 'examples/proxy'
+
+## State storage
+http::state:
+  - s3:
+      bucket: "%{hiera('tf_state_bucket')}"
+      name: "terraform-aws-apigw/%{environment}"
+      region: "%{hiera('tf_state_region')}"
+
+### API Gateway
+examples::proxy::vars:
+  api_root_resource_id:
+    type: 's3.state'
+    bucket: "%{hiera('tf_state_bucket')}"
+    document: 'terraform-aws-apigw/prereqs/terraform.tfstate'
+    key: 'api_root_resource_id'
+  integration_request_parameter: 'integration.request.path.proxy'
+  integration_type: 'HTTP_PROXY'
+  integration_uri : 'http://petstore-demo-endpoint.execute-api.com/{proxy}'
+  request_parameter: 'method.request.path.proxy'
+  resource_path: '{proxy+}'

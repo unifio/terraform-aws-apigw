@@ -1,0 +1,34 @@
+---
+# Common resources
+
+## Prereqs
+examples::prereqs::vars: &prereq_params
+  api_label: 'terraform'
+  domain_name: 'exmpl-api.unif.io'
+  region: "%{hiera('region')}"
+
+## Proxy examples
+examples::proxy::vars: &proxy_params
+  api_id:
+    type: 's3.state'
+    bucket: "%{hiera('tf_state_bucket')}"
+    document: 'terraform-aws-apigw/prereqs/terraform.tfstate'
+    key: 'api_id'
+  region: "%{hiera('region')}"
+  stack_item_fullname: 'Proxy Examples'
+  stack_item_label: 'prxy'
+
+## Stage example
+examples::stage::vars: &stage_params
+  <<: *prereq_params
+  <<: *proxy_params
+
+## Deploy example
+examples::deploy::vars:
+  <<: *stage_params
+
+## Usage plan example
+examples::usage::vars:
+  <<: *proxy_params
+  plan_label: 'exmpl'
+  stage_name: 'live'
