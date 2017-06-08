@@ -8,8 +8,8 @@ terraform {
 ## Creates API
 resource "aws_api_gateway_rest_api" "api" {
   binary_media_types = "${compact(var.binary_media_types)}"
-  description        = "${var.stack_item_fullname}"
-  name               = "${var.api_label}-${var.stack_item_label}"
+  description        = "${var.api_description}"
+  name               = "${var.api_name}"
 }
 
 ## Creates and associates a custom domain

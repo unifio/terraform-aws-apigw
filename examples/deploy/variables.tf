@@ -4,10 +4,6 @@ variable "api_id" {
   type = "string"
 }
 
-variable "api_label" {
-  type = "string"
-}
-
 variable "domain_name" {
   type = "string"
 }
