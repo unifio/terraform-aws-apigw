@@ -30,6 +30,24 @@ variable "certificate_name" {
   default     = ""
 }
 
+variable "certificate_provider_external_id" {
+  type        = "string"
+  description = "The external ID to use when making the AssumeRole call."
+  default     = ""
+}
+
+variable "certificate_provider_role_arn" {
+  type        = "string"
+  description = "The ARN of the role to assume to lookup the certificate."
+  default     = ""
+}
+
+variable "certificate_provider_session_name" {
+  type        = "string"
+  description = "The session name to use when making the AssumeRole call."
+  default     = ""
+}
+
 variable "certificate_type" {
   type        = "string"
   description = "Managed certificate type. Valid values are 'acm' or 'iam'."

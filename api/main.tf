@@ -19,6 +19,9 @@ module "tls" {
   certificate_name = "${var.certificate_name}"
   certificate_type = "${var.certificate_type}"
   domain_enabled   = "${length(var.domain_name) > 0 ? "true" : "false"}"
+  external_id      = "${var.certificate_provider_external_id}"
+  role_arn         = "${var.certificate_provider_role_arn}"
+  session_name     = "${var.certificate_provider_session_name}"
 }
 
 resource "aws_api_gateway_domain_name" "api_domain" {
