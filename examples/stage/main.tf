@@ -11,7 +11,6 @@ module "stage" {
   #source = "github.com/unifio/terraform-aws-apigw?ref=master//stage"
   source = "../../stage"
 
-  api_label           = "${var.api_label}"
   api_id              = "${var.api_id}"
   domain_name         = "${var.domain_name}"
   stack_item_fullname = "${var.stack_item_fullname}"

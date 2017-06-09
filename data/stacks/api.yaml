@@ -16,5 +16,5 @@ examples::prereqs::vars:
   certificate_name: '*.unif.io'
   certificate_type: 'acm'
   iam_path: "%{hiera('iam_path')}"
-  stack_item_fullname: 'API Gateway UAT'
-  stack_item_label: 'uat'
+  api_name: 'API Gateway UAT'
+  api_description: 'Terraform API Gateway test stack!'

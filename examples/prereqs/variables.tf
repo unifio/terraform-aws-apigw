@@ -1,11 +1,11 @@
 # Input variables
 
 ## Resource tags
-variable "api_label" {
+variable "api_description" {
   type = "string"
 }
 
-variable "stack_item_fullname" {
+variable "api_name" {
   type = "string"
 }
 

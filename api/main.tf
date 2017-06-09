@@ -8,8 +8,8 @@ terraform {
 ## Creates API
 resource "aws_api_gateway_rest_api" "api" {
   binary_media_types = "${compact(var.binary_media_types)}"
-  description        = "${var.stack_item_fullname}"
-  name               = "${var.api_label}-${var.stack_item_label}"
+  description        = "${var.api_description}"
+  name               = "${var.api_name}"
 }
 
 ## Creates and associates a custom domain
@@ -19,6 +19,9 @@ module "tls" {
   certificate_name = "${var.certificate_name}"
   certificate_type = "${var.certificate_type}"
   domain_enabled   = "${length(var.domain_name) > 0 ? "true" : "false"}"
+  external_id      = "${var.certificate_provider_external_id}"
+  role_arn         = "${var.certificate_provider_role_arn}"
+  session_name     = "${var.certificate_provider_session_name}"
 }
 
 resource "aws_api_gateway_domain_name" "api_domain" {

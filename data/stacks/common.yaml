@@ -3,9 +3,9 @@
 
 ## Prereqs
 examples::prereqs::vars: &prereq_params
-  api_label: 'terraform'
   domain_name: 'exmpl-api.unif.io'
   region: "%{hiera('region')}"
+  stack_item_label: 'uat'
 
 ## Proxy examples
 examples::proxy::vars: &proxy_params

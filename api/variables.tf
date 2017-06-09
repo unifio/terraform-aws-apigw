@@ -1,19 +1,14 @@
 # Input variables
 
 ## Resource tags
-variable "api_label" {
+variable "api_name" {
   type        = "string"
-  description = "Short form identifier for this API."
+  description = "Name for this API."
 }
 
-variable "stack_item_fullname" {
+variable "api_description" {
   type        = "string"
-  description = "Long form descriptive name for this stack item. This value is used to create the 'application' resource tag for resources created by this stack item."
-}
-
-variable "stack_item_label" {
-  type        = "string"
-  description = "Short form identifier for this stack. This value is used to create the 'Name' resource tag for resources created by this stack item, and also serves as a unique key for re-use."
+  description = "Description for this API."
 }
 
 ## REST API
@@ -27,6 +22,24 @@ variable "binary_media_types" {
 variable "certificate_name" {
   type        = "string"
   description = "The unique name to use when registering this cert as an IAM server certificate."
+  default     = ""
+}
+
+variable "certificate_provider_external_id" {
+  type        = "string"
+  description = "The external ID to use when making the AssumeRole call."
+  default     = ""
+}
+
+variable "certificate_provider_role_arn" {
+  type        = "string"
+  description = "The ARN of the role to assume to lookup the certificate."
+  default     = ""
+}
+
+variable "certificate_provider_session_name" {
+  type        = "string"
+  description = "The session name to use when making the AssumeRole call."
   default     = ""
 }
 

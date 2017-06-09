@@ -1,9 +1,5 @@
 # Input variables
 
-variable "api_label" {
-  type = "string"
-}
-
 variable "api_id" {
   type = "string"
 }

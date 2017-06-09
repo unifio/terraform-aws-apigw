@@ -1,11 +1,6 @@
 # Input variables
 
 ## Resource tags
-variable "api_label" {
-  type        = "string"
-  description = "Short form identifier for this API."
-}
-
 variable "stack_item_fullname" {
   type        = "string"
   description = "Long form descriptive name for this stack item. This value is used to create the 'application' resource tag for resources created by this stack item."
@@ -32,6 +27,12 @@ variable "cache_cluster_enabled" {
 variable "cache_cluster_size" {
   type        = "string"
   description = "The size of the cache cluster for the stage, if enabled. Allowed values include 0.5, 1.6, 6.1, 13.5, 28.4, 58.2, 118 and 237."
+  default     = ""
+}
+
+variable "client_certificate_description" {
+  type        = "string"
+  description = "Description of the client certificate."
   default     = ""
 }
 

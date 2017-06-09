@@ -48,7 +48,7 @@ resource "aws_api_gateway_deployment" "initial" {
 resource "aws_api_gateway_client_certificate" "cert" {
   count = "${var.client_certificate_enabled == "true" ? "1" : "0"}"
 
-  description = "${var.api_label}-${var.stack_item_label}-${var.stage_name}"
+  description = "${var.client_certificate_description}"
 }
 
 ## Enabled custom domain path mapping
