@@ -26,6 +26,8 @@ resource "aws_api_gateway_method_response" "method_response" {
   resource_id = "${var.resource_id}"
   rest_api_id = "${var.api_id}"
   status_code = "${var.method_response_status_code}"
+  response_models = "${var.method_response_models}"
+  response_parameters = "${var.method_response_parameters}"
 }
 
 ## Creates a method integration
