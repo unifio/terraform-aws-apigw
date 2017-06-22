@@ -1,6 +1,7 @@
-## Unreleased
+## 0.1.3 (June 22, 2017)
 * Add support for authorizers
 * Add more extensive testing for non-proxy use cases
+* Added response_models and response_parameters to aws_api_gateway_method_response resource
 
 ## 0.1.2 (June 8, 2017)
 
