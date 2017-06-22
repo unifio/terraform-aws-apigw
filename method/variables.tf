@@ -55,6 +55,18 @@ variable "method_response_status_code" {
   default     = ""
 }
 
+variable "method_response_models" {
+  type        = "map"
+  description = "A map of the API models used for the response's content type"
+  default     = {}
+}
+
+variable "method_response_parameters" {
+  type        = "map"
+  description = "A map of response parameters that can be sent to the caller."
+  default     = {}
+}
+
 ## Integration parameters
 variable "integration_credentials" {
   type        = "string"
