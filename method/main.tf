@@ -20,13 +20,13 @@ resource "aws_api_gateway_method" "method" {
 }
 
 resource "aws_api_gateway_method_response" "method_response" {
-  count = "${var.integration_type == "AWS_PROXY" || var.integration_type == "HTTP_PROXY" ? "0" : "1"}"
+  count = "${length(var.http_method) == 0 || var.integration_type == "AWS_PROXY" || var.integration_type == "HTTP_PROXY" ? "0" : "1"}"
 
-  http_method = "${aws_api_gateway_method.method.http_method}"
-  resource_id = "${var.resource_id}"
-  rest_api_id = "${var.api_id}"
-  status_code = "${var.method_response_status_code}"
-  response_models = "${var.method_response_models}"
+  http_method         = "${aws_api_gateway_method.method.http_method}"
+  resource_id         = "${var.resource_id}"
+  rest_api_id         = "${var.api_id}"
+  status_code         = "${var.method_response_status_code}"
+  response_models     = "${var.method_response_models}"
   response_parameters = "${var.method_response_parameters}"
 }
 
@@ -63,7 +63,7 @@ resource "aws_api_gateway_integration" "integration_content_handling" {
 }
 
 resource "aws_api_gateway_integration_response" "integration_response" {
-  count = "${(var.integration_type == "AWS_PROXY" || var.integration_type == "HTTP_PROXY" ? "0" : "1") * (length(var.integration_response_content_handling) > 0 ? "0" : "1")}"
+  count = "${(length(var.http_method) == 0 || var.integration_type == "AWS_PROXY" || var.integration_type == "HTTP_PROXY" ? "0" : "1") * (length(var.integration_response_content_handling) > 0 ? "0" : "1")}"
 
   http_method         = "${aws_api_gateway_method.method.http_method}"
   resource_id         = "${var.resource_id}"
