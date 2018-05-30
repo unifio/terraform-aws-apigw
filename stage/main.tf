@@ -5,9 +5,7 @@ terraform {
   required_version = ">= 0.9.3"
 }
 
-data "aws_region" "current" {
-  current = true
-}
+data "aws_region" "current" {}
 
 ## Creates an API stage & deployment
 resource "aws_api_gateway_stage" "stage" {
