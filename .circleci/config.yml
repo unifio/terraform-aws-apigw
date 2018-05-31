@@ -1,0 +1,52 @@
+common: &common
+  working_directory: ~/repo
+
+  docker:
+    - image: unifio/ci:3.0.551-ruby-2.5.1
+
+  environment:
+    AWS_REGION: 'us-east-2'
+    TF_PLUGIN_CACHE_DIR: '/root/.terraform.d/plugin-cache'
+
+version: 2
+
+jobs:
+  build:
+    <<: *common
+
+    steps:
+      - checkout
+
+      - run:
+          name: Verify
+          environment:
+            CI_REPORTS: 'reports'
+            COVALENCE_TEST_ENVS: 'proxy,stage,usage'
+          command: |
+            mkdir reports
+            bundle exec rake ci
+      - store_test_results:
+          path: reports
+
+      - run:
+          name: UAT
+          command: |
+            bundle exec rake proxy:http:apply
+            bundle exec rake stage:domain:apply
+            bundle exec rake stage:deploy:apply
+            bundle exec rake usage:defaults:apply
+
+      - run:
+          name: Cleanup
+          command: |
+            bundle exec rake usage:defaults:destroy
+            ## Race conditions prevent a clean destroy on the stage
+            bundle exec rake stage:deploy:destroy || true
+            bundle exec rake stage:deploy:destroy
+            bundle exec rake proxy:destroy
+
+experimental:
+  notify:
+    branches:
+      only:
+        - master

@@ -5,9 +5,7 @@ terraform {
   required_version = ">= 0.9.3"
 }
 
-data "aws_region" "current" {
-  current = true
-}
+data "aws_region" "current" {}
 
 ## Creates IAM role for service integrations
 data "aws_iam_policy_document" "role" {
